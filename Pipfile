@@ -7,7 +7,7 @@ name = "pypi"
 numpy = "2.2.0"
 pandas = "2.2.3"
 streamlit = "1.41.1"
-scikit-learn = "*"
+scikit-learn = "1.6.0"
 
 [dev-packages]
 pytest = "*"
