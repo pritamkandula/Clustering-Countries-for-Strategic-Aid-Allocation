@@ -6,7 +6,6 @@ import pandas as pd
 
 country_data_file = "Country-data.csv"
 
-# Streamlit UI
 st.set_page_config(page_title="Country Status Analyzer", page_icon="🌍")
 st.title("Country Status Analyzer")
 st.markdown(
@@ -20,13 +19,39 @@ st.markdown(
     """
 )
 
-# Input Form
 st.sidebar.header("Input Country Data")
-exports = st.sidebar.number_input("Exports (%)", min_value=-17.0, max_value=100.0, step=0.1)
-health = st.sidebar.number_input("Health (% of GDP)", min_value=0.0, max_value=15.0, step=0.1)
-gdpp = st.sidebar.number_input("GDP per capita (in USD)", min_value=-17750.0, step=34000.0)
-child_mort = st.sidebar.number_input("Child Mortality (per 1000 births)", min_value=0.0, step=150.0)
-inflation = st.sidebar.number_input("Inflation (%)", min_value=-10.0, max_value=25.0, step=0.1)
+
+exports_slider = st.sidebar.slider("Exports (%)", min_value=-17.0, max_value=100.0,
+                                   value=0.0, step=0.1, key="exports_slider")
+exports_input = st.sidebar.number_input("Or enter Exports (%)", min_value=-17.0, max_value=100.0,
+                                        value=exports_slider, step=0.1, key="exports_input")
+
+health_slider = st.sidebar.slider("Health (% of GDP)", min_value=0.0, max_value=15.0,
+                                  value=5.0, step=0.1, key="health_slider")
+health_input = st.sidebar.number_input("Or enter Health (% of GDP)", min_value=0.0,
+                                       max_value=15.0, value=health_slider, step=0.1, key="health_input")
+
+gdpp_slider = st.sidebar.slider("GDP per capita (in USD)", min_value=-17750.0,
+                                max_value=50000.0, value=20000.0, step=500.0, key="gdpp_slider")
+gdpp_input = st.sidebar.number_input("Or enter GDP per capita (in USD)", min_value=-17750.0,
+                                     max_value=50000.0, value=gdpp_slider, step=500.0, key="gdpp_input")
+
+child_mort_slider = st.sidebar.slider("Child Mortality (per 1000 births)", min_value=0.0,
+                                      max_value=150.0, value=50.0, step=1.0, key="child_mort_slider")
+child_mort_input = st.sidebar.number_input("Or enter Child Mortality (per 1000 births)", min_value=0.0,
+                                           max_value=150.0, value=child_mort_slider, step=1.0, key="child_mort_input")
+
+inflation_slider = st.sidebar.slider("Inflation (%)", min_value=-10.0, max_value=25.0,
+                                     value=5.0, step=0.1, key="inflation_slider")
+inflation_input = st.sidebar.number_input("Or enter Inflation (%)", min_value=-10.0, max_value=25.0,
+                                          value=inflation_slider, step=0.1, key="inflation_input")
+
+# Use the number input values as the final input
+exports = exports_input
+health = health_input
+gdpp = gdpp_input
+child_mort = child_mort_input
+inflation = inflation_input
 
 if st.sidebar.button("Predict Country Status"):
     try:
@@ -97,14 +122,14 @@ if st.button("Generate Plot"):
         # Group by Country for categorical X-axis
         grouped_df = df.groupby(x_axis)[y_axis].sum().reset_index()
         st.bar_chart(grouped_df.set_index(x_axis)[y_axis])
-    # Handle other chart cases (e.g., numeric vs numeric)
+    # Handle other chart cases (numeric vs numeric)
     elif pd.api.types.is_numeric_dtype(df[x_axis]) and pd.api.types.is_numeric_dtype(df[y_axis]):
         st.line_chart(df[[x_axis, y_axis]].dropna())
     else:
         st.error("Invalid selection, please choose a numerical Y-axis for the bar chart.")
 
 
-# Embed Tableau visualization
+# Tableau visualization
 st.markdown("""
 **Explore More**:
 Check out the [Tableau Dashboard](https://public.tableau.com/app/profile/pritam.kandula/viz/Clustering_Countries_portfolio/GlobalHealthandEconomicDisparities)  
