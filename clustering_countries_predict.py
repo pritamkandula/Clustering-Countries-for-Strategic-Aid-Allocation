@@ -1,6 +1,7 @@
 from utils import kmeans_model, scaler, outlier_bounds_dict, \
         outlier_check, positive_value_converter, boxcox_transform
 
+import matplotlib.pyplot as plt
 import streamlit as st
 import pandas as pd
 
@@ -122,11 +123,16 @@ if st.button("Generate Plot"):
         # Group by Country for categorical X-axis
         grouped_df = df.groupby(x_axis)[y_axis].sum().reset_index()
         st.bar_chart(grouped_df.set_index(x_axis)[y_axis])
-    # Handle other chart cases (numeric vs numeric)
     elif pd.api.types.is_numeric_dtype(df[x_axis]) and pd.api.types.is_numeric_dtype(df[y_axis]):
-        st.line_chart(df[[x_axis, y_axis]].dropna())
+        # Create scatter plot using matplotlib
+        fig, ax = plt.subplots()
+        ax.scatter(df[x_axis], df[y_axis], alpha=0.6)
+        ax.set_xlabel(x_axis)
+        ax.set_ylabel(y_axis)
+        ax.set_title(f"Scatter Plot: {x_axis} vs {y_axis}")
+        st.pyplot(fig)
     else:
-        st.error("Invalid selection, please choose a numerical Y-axis for the bar chart.")
+        st.error("Invalid selection. Please select compatible columns.")
 
 
 # Tableau visualization
