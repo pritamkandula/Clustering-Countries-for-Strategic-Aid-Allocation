@@ -40,7 +40,9 @@ Using objective criteria to prioritize aid allocation enhances transparency and 
 ---
 
 This is an **Unsupervised Machine Learning** project focusing on various Clustering methods like KMeans, Hierarchical Clustering and DBSCAN algorithms. The colab notebook in the repository consists of all the **EDA (Exploratory Data Analysis)** and **Hypothesis Testing** performed along with the **Model Building**.
+
 A Flask API is built for model prediction purpose and also a simple Streamlit app is built for the same and deployed for users to try on!  ---> https://country-status-predict.streamlit.app/
+
 Tableau Dashboard for data analysis and visualizations can be found at ---> https://public.tableau.com/app/profile/pritam.kandula/viz/Clustering_Countries_portfolio/GlobalHealthandEconomicDisparities
 
 
