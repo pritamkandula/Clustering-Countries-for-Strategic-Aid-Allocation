@@ -1,0 +1,17 @@
+# Ignore data files
+*.csv
+
+# Ignore Python cache and build artifacts
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore Git-related files
+.git
+.gitignore
+
+# Ignore other non-essential files
+*.twm  # Tableau file
+README.md
+Pipfile
+Pipfile.lock
