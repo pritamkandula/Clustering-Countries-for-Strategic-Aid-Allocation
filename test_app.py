@@ -30,7 +30,7 @@ def test_title(client):
 
 
 def test_predict_valid_input(client):
-    response = client.post("/predict", json=valid_payload)
+    response = client.post("/predict", json=invalid_payload)
     data = response.get_json()
 
     assert response.status_code == 200
